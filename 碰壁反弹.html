@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+		#wrap{
+				border: 1px solid red;
+				width: 700px;
+				height: 500px;
+				position: relative;
+			}
+		#block{
+			position: absolute;
+			 width: 200px;
+			 height: 180px;
+			 left: 0;
+			 top: 0;
+			 background:url(img/xidad.jpg);
+		}
+		
+		</style>
+	</head>
+	<body>
+		<!--边框-->
+		<div id="wrap">
+			<div id="block"></div>		
+		</div>
+		
+		
+		<p>1.script用于定义客户端的脚本，比如JavaScript</p>
+		<p>2.script元素可以包含脚本语句，也可以通过src属性指向外部的脚本语言</p>
+		<p>3.javascript常用在对图像的操作，表单的验证，以及动态内同的更新</p>
+		
+		<!--脚本语言，控制滑块的移动-->
+		<script type="text/javascript">
+		//所有资源加载完毕的后执行的函数
+		window.onload=function () {
+			//var:定义一个变量
+			//document：根文件路径
+			//getElementRyId：通过ID找到你想要的标签，并且用一个变量来代替使用
+//			一.获取滑块
+//			利用js得到边框的div
+			var wrap=document.getElementById("wrap");
+//			利用js得到滑块
+			var block=document.getElementById("block");
+//			二.计算滑块最大距离,为了判断是否出界
+//			offsetwidth:x方向的偏移量
+//			clientWidth容器自身的宽度
+//			水平方向上的最大移动距离:定义变量(最大的宽度)得到wrap的宽度减去block的x方向的偏移量;	
+			var maxWidth=wrap.clientWidth-block.offsetWidth;
+//			在竖直方向上的最大移动距离
+			var maxHeight=wrap.clientHeight-block.offsetHeight;
+//			三.得到滑块偏移量,改变偏移量,从而实线滑块的移动
+//			获得左边的偏移量
+			var beginLeft=block.offsetLeft;
+			//获得上边的偏移量
+			var beginTop=block.offsetTop;
+			
+//			1.setInterval()函数会按照指定的周期(以毫秒为单位)来周期性的调用某个函数或者表达式
+//			2.setInterval会不停的调用函数,直到clearInterVal()被调用或者窗口关闭
+			var changeX=3;
+			var changeY=4;
+//			function这个函数每隔10毫秒被调用一次
+			setInterval(function(){
+//				1.改变滑块的偏移量
+				beginLeft +=changeX;
+				beginTop +=changeY;
+				//beginLeft=beginLeft+3;
+//				
+//			2.判断边界
+			if(beginLeft>maxWidth||beginLeft<0){
+				changeX=-changeX;
+			}
+			if(beginTop>maxHeight||beginTop<0){
+				changeY=-changeY;
+			}
+//			3.把改变后的偏移量重新赋值给滑块
+			block.style.left=beginLeft+"px";
+			block.style.top=beginTop+"px";
+			},1)
+			
+		 
+		
+		}
+		 
+		</script>
+		
+	</body>
+</html>
